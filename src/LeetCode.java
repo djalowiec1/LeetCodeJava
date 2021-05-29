@@ -191,7 +191,7 @@ public class LeetCode {
     		q = q * -1;
     	}
         StringBuilder p = new StringBuilder();
-        p.append(x);
+        p.append(q);
         p.reverse();
         
         long result = Long.parseLong(p.toString());
@@ -203,6 +203,10 @@ public class LeetCode {
         	intVersion = intVersion * -1;
         }
         return intVersion; 
+    }
+    public int firstUniqChar(String s) {
+      /CURRENT
+      return - 1;   
     }
 	/**
 	 * @param args
