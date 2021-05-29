@@ -1,3 +1,5 @@
+import java.util.*;
+
 
 /**
  * @author djalowiec
@@ -40,6 +42,110 @@ public class LeetCode {
           }
     	//nums =  numsReturn.clone();
     }
+    public boolean containsDuplicate(int[] nums) {
+    	HashSet <Integer> HashSet = new HashSet <>(nums.length);
+    	for(int x = 0; x < nums.length; x++) {
+	    	if(HashSet.contains(nums[x])) {
+	    		return true;
+	    	}
+	    	HashSet.add(nums[x]);
+	    	}
+    	 return false; 
+
+    }
+    public int singleNumber(int[] nums) {
+    	if(nums.length == 1) {
+    		return nums[0];
+    	}
+    	Arrays.sort(nums);
+    	int x ;
+    	for(x = 0; x < nums.length -1 ; x++) {
+    		if(nums[x] != nums[x+1]) {
+    			return nums[x];
+    		} else {
+    			//skip another
+    			x++;
+    		}
+    	}
+    	return nums[x];
+    	
+    }
+    public int[] intersect(int[] nums1, int[] nums2) {
+     HashSet<Integer> set = new HashSet<Integer>();
+     for(int i : nums1) {
+    	 set.add(i); //no DUPLICATES
+     }
+     
+     HashSet<Integer> intersect = new HashSet<Integer>();
+     for(int j : nums2) {
+    	 if(set.contains(j)) {
+    		 intersect.add(j);
+    	 }
+     }
+     int[] result = new int[intersect.size()];
+     int i = 0;
+     for(int x: intersect) {
+    	 result[i] = x;
+    	 i++;
+     }
+     //Integer[] array = new Integer[intersect.size()];
+     //intersect.toArray(array);
+     
+     return result;
+    }
+    public int[] plusOne(int[] digits) {
+      boolean addAnother = false;
+      for(int x = digits.length - 1; x >= 0; x-- ) {
+    	  if(digits[x] < 9) {
+    		  digits[x]  = digits[x] + 1;
+    		  return digits;
+    	  } else {
+    		  //set to 0
+    		  digits[x]  = 0;
+    		  addAnother = true;
+    	  }
+      }
+	  int[] result = new int[digits.length + 1];
+      if(addAnother) {
+    	  Arrays.fill(result, 1);
+    	  for(int i = 1; i < result.length; i++) {
+    		  result[i] = digits[i - 1];
+    	   }
+      }
+      return result;
+    }
+    public void moveZeroes(int[] nums) {
+        //move zeros to end 
+    	//int y = 0;
+    	
+    	//count all 0
+    	int cntZero = 0;
+    	for(int x : nums) {
+    		if(x == 0) {
+    			cntZero ++;
+    		}
+    	}
+    	List<Integer> order = new ArrayList<Integer>();
+    	for(int x : nums) {
+    		if(x != 0) {
+    			order.add(x);
+    		}
+    	}
+    	if(cntZero > 0) {
+    		do {
+    			order.add(0);
+    			cntZero--;
+    		} while (cntZero > 0);
+    	}
+    	for(int i = 0; i <nums.length; i++) {
+    		nums[i] = order.get(i);
+    	}
+    }
+    public int[] twoSum(int[] nums, int target) {
+        for(int x = 0; x<nums.length; x++) {
+        	
+        }
+    }
 	/**
 	 * @param args
 	 */
@@ -61,10 +167,14 @@ public class LeetCode {
 		//System.out.println("Profit is: " + profit);
 		
 		//3.rotate
-		int[] prices =  {1,2,3,4,5,6,7};
-		int k = 3;
-		practice.rotate(prices, k);
+		//int[] prices =  {1,2,3,4,5,6,7};
+		//int k = 3;
+		//practice.rotate(prices, k);
 		//System.out.println("Profit is: " + profit);
+		
+		int[] array =  {4,1,2,1,2};
+		int onlyOnce = practice.singleNumber(array);
+		System.out.println("numer to appear only once is: " + onlyOnce);
 		
 	}
 	
