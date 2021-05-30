@@ -205,9 +205,153 @@ public class LeetCode {
         return intVersion; 
     }
     public int firstUniqChar(String s) {
-      /CURRENT
-      return - 1;   
+      //CURRENT
+    	
+    	//hash map
+    	// c 0
+    	// p 1
+    	
+    	HashMap <Character, Integer> map = new HashMap <Character, Integer>();
+    	for (int i = 0; i< s.length(); i++) {
+    		char c = s.charAt(i);
+    		map.put(s.charAt(i), map.getOrDefault(c, 0) + 1);
+    	}
+    	for (int j = 0; j< s.length(); j++) {
+    		if(map.get(s.charAt(j)) == 1) {
+    			return 1;
+    		}
+        }
+    	
+    	return -1;
+      //return - 1;   
     }
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        char[] str1 = s.toCharArray();
+        char[] str2 = t.toCharArray();
+        Arrays.sort(str1);
+        Arrays.sort(str2);
+        if(Arrays.equals(str1, str2)) {
+        	return true;
+        } else {
+        	return false; 
+        }
+    }
+    public boolean isPalindrome(String s) {
+    	int start = 0;
+    	int end = s.length() - 1;
+    	
+    	while(start < end ) {
+    		while(start < end && !Character.isLetterOrDigit(s.charAt(start))) {
+    			start ++;
+    		}
+    		while(start < end && !Character.isLetterOrDigit(s.charAt(end))) {
+    			end --;
+    		}
+    		if(start < end && 
+    		   Character.toLowerCase(s.charAt(start)) != Character.toLowerCase(s.charAt(end)))   {
+    			return false;
+    		}
+			start++;
+			end--;
+    	}
+    	return true;
+    }
+    
+    public int myAtoi(String s) {
+	     if(s.length() == 0 || s.isBlank()) {
+	    	 return 0;
+	     }
+	     String Result = "";
+	     int returnInt = 0;
+	     boolean negative = false;
+	     //step 1 Read in and ignore any leading whitespace   
+	     s = s.stripLeading();
+	     //step 2 check for +/ - to see if negative or postive result
+	     if(s.charAt(0) == '+' || s.charAt(0) == '-' )  {
+	    	 if(s.charAt(0) == '-') {
+	    		 negative = true;
+	    	 }
+	    	 s = s.substring(1, s.length());
+	     }
+	     //step 3 read in numeric number
+	     for(int i = 0; i < s.length() ; i++) {
+	    	 if(Character.isDigit(s.charAt(i))) {
+	    		 Result = Result + s.charAt(i);
+	    	 } else {
+	    		 break;
+	    	 }
+	     }
+	     long longResult;
+	     //step 4 convert
+	     if(!Result.isBlank()) {
+	    	 //check if too big 
+	    	 String regex = "^0+(?!$)";
+	    	 Result = Result.replaceAll(regex, "");
+	    	 if(Result.length() > 10) {
+	    		 if(negative) {
+	    			 return Integer.MIN_VALUE;
+	    		 } else {
+	    			 return  Integer.MAX_VALUE;
+	    		 }
+	    	 } else {
+		    	 longResult = Long.parseLong(Result);
+	    	 }
+	     } else {
+	    	 return 0;
+	     }
+	     if(negative) {
+	    	 longResult = longResult * -1;
+	     }
+	     //step 5check if can fit in int
+	     if(longResult >= Integer.MAX_VALUE || longResult <= Integer.MIN_VALUE  ) {
+	    	 if(negative) {
+	    		 returnInt = Integer.MIN_VALUE;
+	    	 } else {
+	    		 returnInt = Integer.MAX_VALUE;
+	    	 } 
+	     } else {
+	    	 returnInt = (int) longResult;
+	     }
+	     return  returnInt;
+    }
+    
+    public int strStr(String haystack, String needle) {
+        if(haystack.isBlank() && needle.isBlank() ) {
+        	return 0;
+        }
+        if(!haystack.isBlank() && needle.isBlank() ) {
+        	return 0;
+        }
+        //if hay stack -1
+        if(needle.isBlank() || haystack.isBlank()  ||needle.length() > haystack.length()) {
+        	return -1;
+        }
+        if(needle.length() == haystack.length()) { 
+        	if(needle.equals(haystack)) {
+        		return 0;
+        	}
+        }
+        
+        //now check 
+        for(int x = 0; x < haystack.length() ; x++ ) {
+        	if(haystack.charAt(x) == needle.charAt(0)) {
+        		int needleP = 1;
+        		while(needleP < needle.length()) {
+                	if(haystack.charAt(x + needleP) == needle.charAt(needleP))  {
+                		needleP++;
+                	} else {
+                		break;
+                	}
+                	return x;
+        		}
+        	}
+        }
+        return -1;
+    }
+    
 	/**
 	 * @param args
 	 */
@@ -239,8 +383,11 @@ public class LeetCode {
 		//System.out.println("numer to appear only once is: " + onlyOnce);
 		
 		
-		int reverse = -2147483648;
-		practice.reverse(reverse);
+		String strStr = "20000000000000000000";
+		//9223372036854775807
+		//20000000000000000000
+		//2147483647
+		practice.strStr("abc","c");
 		
 	}
 	
