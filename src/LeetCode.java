@@ -142,9 +142,71 @@ public class LeetCode {
     	}
     }
     public int[] twoSum(int[] nums, int target) {
+		int[] result = {0,0};
+    	/*
+    	 * brute force
+		int[] result = {0,0};
         for(int x = 0; x<nums.length; x++) {
+        	for (int y = x + 1; y < nums.length; y++) {
+        		if(nums[x] + nums[y] == target) {
+        			result[0] = x;
+        			result[1] = y;
+        			return result;
+        		}
+        	}
         	
+        }*/
+    	HashMap<Integer, Integer> findTarget = new HashMap<Integer, Integer>();
+        for(int x = 0; x<nums.length; x++) {
+        	findTarget.put(nums[x], x);
         }
+        //now find same ones
+        for(int x = 0; x<nums.length; x++) {
+        	int partner = target - nums[x];
+        	if(findTarget.containsKey(partner)){
+        		if(findTarget.get(partner) != x) {
+        			int[] value = {x , findTarget.get(partner)};
+        			return value;
+        		}
+        	}
+        }
+        
+        
+        return result;
+    }
+    public void reverseString(char[] s) {
+    	StringBuilder newString = new StringBuilder();
+        newString.append(s);
+        newString.reverse();
+        for(char p = 0; p< newString.length(); p++) {
+        	s[p] = newString.charAt(p);
+        }
+    }
+    public int reverse(int x) {
+    	//save if negative
+    	boolean negative = false;
+    	long q = x;
+    	if(q < 0) {
+    		negative = true;
+    		q = q * -1;
+    	}
+        StringBuilder p = new StringBuilder();
+        p.append(q);
+        p.reverse();
+        
+        long result = Long.parseLong(p.toString());
+        if(result > Integer.MAX_VALUE || result < Integer.MIN_VALUE) {
+        	return 0;
+        }
+        int intVersion = (int) result;
+        if(negative) {
+        	intVersion = intVersion * -1;
+        }
+        return intVersion; 
+    }
+    public int firstUniqChar(String s) {
+      /CURRENT
+      return - 1;   
     }
 	/**
 	 * @param args
@@ -172,9 +234,13 @@ public class LeetCode {
 		//practice.rotate(prices, k);
 		//System.out.println("Profit is: " + profit);
 		
-		int[] array =  {4,1,2,1,2};
-		int onlyOnce = practice.singleNumber(array);
-		System.out.println("numer to appear only once is: " + onlyOnce);
+		//int[] array =  {4,1,2,1,2};
+		//int onlyOnce = practice.singleNumber(array);
+		//System.out.println("numer to appear only once is: " + onlyOnce);
+		
+		
+		int reverse = -2147483648;
+		practice.reverse(reverse);
 		
 	}
 	
